@@ -6,55 +6,56 @@
 ab -n 1000 -c 100 http://127.0.0.1:8000/
 ```
 
-Benchmarking 127.0.0.1 (be patient)
-Completed 100 requests
-Completed 200 requests
-Completed 300 requests
-Completed 400 requests
-Completed 500 requests
-Completed 600 requests
-Completed 700 requests
-Completed 800 requests
-Completed 900 requests
-Completed 1000 requests
-Finished 1000 requests
+Benchmarking 127.0.0.1 (be patient)<br/>
+Completed 100 requests<br/>
+Completed 200 requests<br/>
+Completed 300 requests<br/>
+Completed 400 requests<br/>
+Completed 500 requests<br/>
+Completed 600 requests<br/>
+Completed 700 requests<br/>
+Completed 800 requests<br/>
+Completed 900 requests<br/>
+Completed 1000 requests<br/>
+Finished 1000 requests<br/>
 
 
-Server Software:        gunicorn
-Server Hostname:        127.0.0.1
-Server Port:            8000
+Server Software:        gunicorn<br/>
+Server Hostname:        127.0.0.1<br/>
+Server Port:            8000<br/>
 
-Document Path:          /
-Document Length:        190000 bytes
+Document Path:          /<br/>
+Document Length:        190000 bytes<br/>
 
-Concurrency Level:      100
-Time taken for tests:   28.930 seconds
-Complete requests:      1000
-Failed requests:        0
-Total transferred:      190143000 bytes
-HTML transferred:       190000000 bytes
-Requests per second:    34.57 [#/sec] (mean)
-Time per request:       2892.956 [ms] (mean)
-Time per request:       28.930 [ms] (mean, across all concurrent requests)
-Transfer rate:          6418.57 [Kbytes/sec] received
+Concurrency Level:      100<br/>
+Time taken for tests:   28.930 seconds<br/>
+Complete requests:      1000<br/>
+Failed requests:        0<br/>
+Total transferred:      190143000 bytes<br/>
+HTML transferred:       190000000 bytes<br/>
+Requests per second:    34.57 [#/sec] (mean)<br/>
+Time per request:       2892.956 [ms] (mean)<br/>
+Time per request:       28.930 [ms] (mean, across all concurrent requests)<br/>
+Transfer rate:          6418.57 [Kbytes/sec] received<br/>
 
-Connection Times (ms)
-              min  mean[+/-sd] median   max
-Connect:        0    1   2.3      0      12
-Processing:    82 2743 493.1   2858    3203
-Waiting:       72 2742 493.1   2857    3202
-Total:         83 2744 491.9   2860    3203
+Connection Times (ms)<br/>
+|              |min  |mean[+/-sd] |median   |max|
+|--------------|-----|------------|---------|---|
+|Connect:      |  0 |   1   2.3   |   0   |   12|
+|Processing:   | 82 |2743 493.1   |2858   | 3203|
+|Waiting:      | 72 |2742 493.1   |2857   | 3202|
+|Total:        | 83 |2744 491.9   |2860   | 3203|
 
-Percentage of the requests served within a certain time (ms)
-  50%   2860
-  66%   2893
-  75%   2915
-  80%   2927
-  90%   2959
-  95%   3089
-  98%   3126
-  99%   3140
- 100%   3203 (longest request)
+Percentage of the requests served within a certain time (ms)<br/>
+  50%   2860<br/>
+  66%   2893<br/>
+  75%   2915<br/>
+  80%   2927<br/>
+  90%   2959<br/>
+  95%   3089<br/>
+  98%   3126<br/>
+  99%   3140<br/>
+ 100%   3203 (longest request)<br/>
 
 
 <h1>Производительность nginx</h1>
