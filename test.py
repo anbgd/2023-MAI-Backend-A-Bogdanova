@@ -1,6 +1,5 @@
 from cache import LRUCache
 
-
 cache = LRUCache(100)
 cache.set('Jesse', 'Pinkman')
 cache.set('Walter', 'White')
