@@ -9,20 +9,20 @@ def validate_positive(value):
         raise ValidationError(gettext_lazy("%d < 0" % value))
 
 
-class Country(models.Model):
+class Director(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.TextField(null=False, max_length=128, blank=False)
 
     class Meta:
         ordering = ["name"]
-        verbose_name = "Country"
-        verbose_name_plural = "Countries"
+        verbose_name = "Director"
+        verbose_name_plural = "Directors"
 
     def __str__(self):
         return str(self.name) + " (" + str(self.id) + ")"
 
 
-class Breed(models.Model):
+class Film(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     title = models.TextField(
         null=False,
@@ -30,12 +30,12 @@ class Breed(models.Model):
         blank=False,
     )
     year = models.IntegerField(null=True, validators=[validate_positive])
-    countries = models.ManyToManyField(Country)
+    directors = models.ManyToManyField(Director)
 
     class Meta:
-        ordering = ["title"]
-        verbose_name = "Breed"
-        verbose_name_plural = "Breeds"
+        ordering = ["year", "title"]
+        verbose_name = "Film"
+        verbose_name_plural = "Films"
 
     def __str__(self):
         return str(self.title) + " (" + str(self.id) + ")"

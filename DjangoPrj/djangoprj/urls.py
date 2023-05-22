@@ -1,4 +1,4 @@
-"""catcollection URL Configuration
+"""DjangoPrj URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/4.0/topics/http/urls/
@@ -14,17 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import URLPattern, URLResolver, path
-from .views import *
+from django.urls import path
 
 urlpatterns = [
-    path("", home, name="web"),
     path('admin/', admin.site.urls),
-    path("api/search", search, name="search"),
-    path("api//", get_all, name="getall"),
-    path("api/create", add_breed, name="create"),
-    path("api/countries/", CountryList.as_view(), name="country-list"),
-    path("api/countries/<uuid:pk>/", CountryDetail.as_view(), name="country-detail"),
-    path("api/breeds/", BreedList.as_view(), name="breed-list"),
-    path("api/breeds/<uuid:pk>/", BreedDetail.as_view(), name="breed-detail"),
 ]
