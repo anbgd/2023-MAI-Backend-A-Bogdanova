@@ -1,0 +1,10 @@
+{% block page_content %}
+<h1 style="text-align:center">
+  It's a dog
+</h1>
+<p>
+  {% load static %}
+  <img style="display: block; margin-left: auto; margin-right: auto;" src="{% static 'images/cat.jpg' %}"
+    alt="cat" width="200" height="200" />
+</p>
+{% endblock %}
