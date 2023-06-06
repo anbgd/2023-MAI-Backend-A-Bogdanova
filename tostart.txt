@@ -1,0 +1,92 @@
+python3 -m venv venv
+source ./venv/bin/activate
+
+sudo fuser -k 8000/tcp
+lsof -nPL -iTCP:8080  //mac
+
+gunicorn --workers 4 app:application
+
+sudo systemctl stop nginx
+sudo systemctl start nginx
+sudo nginx -s reload
+
+sudo nginx //mac
+sudo nginx -s stop //mac
+
+
+http://127.0.0.1:8000/
+http://127.0.0.1:8080/
+
+sudo subl /etc/nginx/nginx.conf 
+sudo subl /usr/local/etc/nginx/nginx.conf  //mac
+
+
+python manage.py runserver 
+
+http://127.0.0.1:8000/api/search
+
+
+brew services start postgresql@12
+/usr/local/opt/postgresql@12/bin/createuser -s postgres
+
+psql -U postgres
+psql -U quack_2023 quack_db_2023
+
+\du - users
+\l - list of databases
+\dt - список таблиц
+\q - выйти
+\dt - список таблиц
+\c - переключиться на другую бд
+\d - из чего состоит таблица
+
+CREATE USER quack_2023 WITH password 's3cr3t';
+CREATE DATABASE quack_db_2023 OWNER quack_2023;
+CREATE TABLE category (id SERIAL PRIMARY KEY, name TEXT NOT NULL UNIQUE CHECK (length(name)<32));
+INSERT INTO category (name) VALUES ('комедия'), ('мелодрама'), ('аниме');
+SELECT id, name FROM category;
+CREATE TABLE movies ( id SERIAL PRIMARY KEY, category_id INTEGER NOT NULL REFERENCES category(id), title TEXT NOT NULL, added_at TIMESTAMP NOT NULL DEFAULT NOW());
+INSERT INTO movies (category_id, title) VALUES (3, 'Твое имя'), (1, 'Евротур'), (2, 'День сурка');
+ALTER TABLE movies ADD COLUMN year SMALLINT DEFAULT NULL;
+UPDATE movies SET year = 2016 WHERE ID = 1;
+UPDATE movies SET year = 2004 WHERE ID = 2;
+UPDATE movies SET year = 1993 WHERE ID = 3;
+
+
+SELECT * FROM movies;
+SELECT * FROM categories;
+
+SELECT category.id, category_id, name, title, added_at, year FROM movies JOIN category ON category.id=movies.category_id;
+
+SELECT category.id, category_id, name, title, added_at, year FROM movies CROSS JOIN category;
+SELECT category.id, category_id, name, title, added_at, year FROM movies CROSS JOIN category ORDER BY title;
+
+добавление в settings 
+venv
+python3 manage.py migrate
+
+
+python3 manage.py dbshell
+
+\d auth_user
+\dt auth_user \\nooo
+
+python3 manage.py makemigrations
+
+
+python3 manage.py dbshell
+\d app_film
+\d app_director
+\d app_film_directors
+
+
+python3 manage.py createsuperuser
+Username (leave blank to use 'anastasiabogdanova'): 
+Email address: nas-tasja@inbox.ru
+pass: 1234
+
+python3 manage.py runserver
+
+http://127.0.0.1:8000/admin/login
+
+python3 manage.py validate - проверить структуру моделей
