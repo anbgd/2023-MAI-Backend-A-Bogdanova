@@ -1,12 +1,10 @@
-from django.contrib.auth.decorators import login_required
 from django.core.handlers.asgi import HttpRequest, HttpResponse
-from django.http import JsonResponse, HttpResponseForbidden
-from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.shortcuts import render
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.csrf import csrf_exempt
-from rest_framework.response import Response
 
-from rest_framework import generics
+from .models import Film, Director
 
 
 
@@ -14,23 +12,30 @@ from rest_framework import generics
 @require_http_methods(["GET"])
 def search(request: HttpRequest) -> JsonResponse:
     search_query = request.GET.get("query")
-    data = [{"id": "23423", "title": "It", "year": "2017"}]
+    films = Film.objects.filter(title__icontains=search_query)
+    data = [{"id": str(f.id), "title": f.title, "year": f.year} for f in films]
     return JsonResponse({"data": data})
-
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def add_film(request: HttpRequest) -> JsonResponse:
     title = request.POST.get("title")
     year = request.POST.get("year")
-    # director_name = request.POST.get("director_name")
-    return JsonResponse({"id": "2017"})
+    director_name = request.POST.get("director_name")
+
+    director, created = Director.objects.get_or_create(name=director_name)
+
+    film = Film.objects.create(title=title, year=year)
+    film.directors.add(director)
+    film.save()
+    return JsonResponse({"id": str(film.id)})
 
 
 @csrf_exempt
 @require_http_methods(["GET"])
 def get_all(request: HttpRequest) -> JsonResponse:
-    data = [{"id": '123345', "title": "Hell or High Water", "year": "2016"}]
+    films = Film.objects.all()
+    data = [{"id": str(f.id), "title": f.title, "year": f.year} for f in films]
     return JsonResponse({"data": data})
 
 
