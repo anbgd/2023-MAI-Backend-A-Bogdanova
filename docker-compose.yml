@@ -1,0 +1,86 @@
+version: "3.3"
+
+services:
+
+  postgres:
+    build:
+      context: Database
+      dockerfile: Dockerfile
+    container_name: postgres
+    environment:
+      POSTGRES_DB: "films"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "helloworld"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
+    volumes:
+      - ./data/postgres:/var/lib/posgresql/data
+
+    networks:
+      - app-network
+
+    expose:
+      - "5433"
+
+    ports:
+      - "5433:5433"
+
+    command: -p 5433
+
+    restart: always
+
+
+  nginx:
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    container_name: nginx
+
+    restart: always
+
+    ports:
+      - "81:81"
+
+    networks:
+      - app-network
+
+  django:
+    build:
+      context: project
+      dockerfile: Dockerfile
+    container_name: django
+    environment:
+      POSTGRES_NAME: "films"
+      POSTGRES_USER: "admin"
+      POSTGRES_PASSWORD: "helloworld"
+      POSTGRES_HOST: "postgres"
+
+    restart: always
+
+    volumes:
+      - .:/code
+
+
+    ports:
+      - "8000:8000"
+
+    networks:
+      - app-network
+
+    depends_on:
+      - postgres
+      - nginx
+
+    command: sh -c "export DJANGO_SETTINGS_MODULE=project.settings &&
+                    python3 project/manage.py migrate &&
+                    python3 project/manage.py runserver 0.0.0.0:8000 &&
+                    python3 project/manage.py migrate social_django"
+
+    healthcheck:
+      test: [ "CMD-SHELL", "curl --fail http://localhost:8000/ || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  app-network:
+    driver: "bridge"
