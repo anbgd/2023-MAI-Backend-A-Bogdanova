@@ -13,7 +13,7 @@ services:
       POSTGRES_PASSWORD: "helloworld"
       POSTGRES_HOST_AUTH_METHOD: "trust"
     volumes:
-      - ./data/postgres:/var/lib/posgresql/data
+      - ./data/postgres:/var/lib/postgresql/data
 
     networks:
       - app-network
