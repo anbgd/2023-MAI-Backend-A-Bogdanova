@@ -19,12 +19,12 @@ services:
       - app-network
 
     expose:
-      - "5444"
+      - "5433"
 
     ports:
-      - "5444:5444"
+      - "5433:5433"
 
-    command: -p 5444
+    command: -p 5433
 
     restart: always
 
